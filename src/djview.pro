@@ -65,6 +65,16 @@ macx {
 # --- windows stuff
 win32 {
   RC_FILE = djview.rc
+  MXE_TARGET=$$(MXE_TARGET)
+  defined(MXE_TARGET, var) {
+    # additional config for cross-compilation for Windows
+    # by Artur Kozak, originally for djview-poliqarp
+  message(Cross compilation target: $$MXE_TARGET)
+    QMAKE_LFLAGS += -static -static-libgcc -static-libstdc++
+    QMAKE_LIBS += $$system($$MXE_TARGET-pkg-config ddjvuapi --libs)
+    QMAKE_CFLAGS += $$system($$MXE_TARGET-pkg-config ddjvuapi --cflags)
+    QMAKE_CXXFLAGS += $$system($$MXE_TARGET-pkg-config ddjvuapi --cflags)
+  }
 }
 
 # --- djviewplugin logic
