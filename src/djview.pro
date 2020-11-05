@@ -67,6 +67,8 @@ win32 {
   RC_FILE = djview.rc
   MXE_TARGET=$$(MXE_TARGET)
   defined(MXE_TARGET, var) {
+    # https://stackoverflow.com/questions/39334966/qt-requires-c11-support?rq=1:
+    QMAKE_CXXFLAGS += -std=c++11
     # additional config for cross-compilation for Windows
     # by Artur Kozak, originally for djview-poliqarp
   message(Cross compilation target: $$MXE_TARGET)
